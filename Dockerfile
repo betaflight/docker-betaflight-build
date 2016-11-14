@@ -34,3 +34,4 @@ CMD GCC_REQUIRED_VERSION=$(arm-none-eabi-gcc -dumpversion) && \
         make GCC_REQUIRED_VERSION=${GCC_REQUIRED_VERSION} clean TARGET=${PLATFORM} && \
         make GCC_REQUIRED_VERSION=${GCC_REQUIRED_VERSION} TARGET=${PLATFORM}; \
     fi
+
