@@ -5,7 +5,7 @@ Clone and edit [Betaflight](https://github.com/betaflight/betaflight) locally on
 
 ## Usage
 ### Install Docker
-Follow the instructions at [https://docs.docker.com/](https://docs.docker.com/) → 'Get Started' (orange button top right).
+The latest docker platform is available from [https://www.docker.com/](https://www.docker.com/products/overview#/install_the_platform). If your system does not meet the system requirements for the latest version, check out the [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
 
 ### Clone the Betaflight repository
 Docker runs on a VirtualBox VM which by default only shares the user directory from the underlying guest OS. On Windows that is `c:/Users/<user>` and on Mac it's `/Users/<user>`. Hence, you need to clone the  [Betaflight](https://github.com/betaflight/betaflight) repository to your *user directory*. If you want to place it outside the user directory you need to adjust the [VirtualBox VM sharing settings](http://stackoverflow.com/q/33934776/131929) accordingly.
