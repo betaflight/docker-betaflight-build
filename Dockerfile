@@ -12,8 +12,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:team-gcc-arm-embedded/ppa
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install git make gcc-arm-none-eabi ccache python
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install git make gcc-arm-embedded ccache python
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y full-upgrade
 
 RUN mkdir /opt/betaflight
 WORKDIR /opt/betaflight
