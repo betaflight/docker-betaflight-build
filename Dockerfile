@@ -23,7 +23,7 @@ RUN cd /opt; tar xjf /tmp/${ARM_SDK_FILE}
 RUN mkdir -p /opt/betaflight
 WORKDIR /opt/betaflight
 
-ENV ARM_SDK_DIR="/opt/${ARM_SDK_NAME}/bin/"
+ENV ARM_SDK_DIR="/opt/${ARM_SDK_NAME}"
 
 # Config options you may pass via Docker like so 'docker run -e "<option>=<value>"':
 # - PLATFORM=<name>, specify target platform to build for
@@ -31,14 +31,13 @@ ENV ARM_SDK_DIR="/opt/${ARM_SDK_NAME}/bin/"
 #
 # What the commands do:
 
-CMD GCC_VERSION=$(${ARM_SDK_DIR}arm-none-eabi-gcc -dumpversion) && \
-    if [ -z ${PLATFORM} ]; then \
+CMD if [ -z ${PLATFORM} ]; then \
         PLATFORM="NAZE"; \
     fi && \
     if [ ${PLATFORM} = ALL ]; then \
-        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} clean_all && \
-        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} all; \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} clean_all && \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} all; \
     else \
-        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} clean TARGET=${PLATFORM} && \
-        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} TARGET=${PLATFORM}; \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} clean TARGET=${PLATFORM} && \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} TARGET=${PLATFORM}; \
     fi
