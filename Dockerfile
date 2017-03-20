@@ -8,14 +8,16 @@ MAINTAINER betaflight
 # - cd <your betaflight source dir>
 # - docker run --rm -ti -v `pwd`:/opt/betaflight betaflight-build
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
-RUN DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:team-gcc-arm-embedded/ppa
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install git make gcc-arm-embedded ccache python
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y full-upgrade
+ENV ARM_SDK_NAME="gcc-arm-none-eabi-6-2017-q1-update"
 
-RUN mkdir /opt/betaflight
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y full-upgrade
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common git make ccache python curl bzip2
+RUN curl -L https://developer.arm.com/-/media/Files/downloads/gnu-rm/6_1-2017q1/${ARM_SDK_NAME}-linux.tar.bz2 -o /tmp/${ARM_SDK_NAME}-linux.tar.bz2
+RUN mkdir -p /opt
+RUN cd /opt; tar xjf /tmp/${ARM_SDK_NAME}-linux.tar.bz2
+
+RUN mkdir -p /opt/betaflight
 WORKDIR /opt/betaflight
 
 # Config options you may pass via Docker like so 'docker run -e "<option>=<value>"':
@@ -23,15 +25,16 @@ WORKDIR /opt/betaflight
 #   Specify 'ALL' to build for all supported platforms. (default: NAZE)
 #
 # What the commands do:
-CMD GCC_REQUIRED_VERSION=$(arm-none-eabi-gcc -dumpversion) && \
+ENV ARM_SDK_DIR="/opt/${ARM_SDK_NAME}/bin/"
+
+CMD GCC_VERSION=$(${ARM_SDK_DIR}arm-none-eabi-gcc -dumpversion) && \
     if [ -z ${PLATFORM} ]; then \
-      PLATFORM="NAZE"; \
+        PLATFORM="NAZE"; \
     fi && \
     if [ ${PLATFORM} = ALL ]; then \
-        make GCC_REQUIRED_VERSION=${GCC_REQUIRED_VERSION} clean_all && \
-        make GCC_REQUIRED_VERSION=${GCC_REQUIRED_VERSION} all; \
+        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} clean_all && \
+        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} all; \
     else \
-        make GCC_REQUIRED_VERSION=${GCC_REQUIRED_VERSION} clean TARGET=${PLATFORM} && \
-        make GCC_REQUIRED_VERSION=${GCC_REQUIRED_VERSION} TARGET=${PLATFORM}; \
+        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} clean TARGET=${PLATFORM} && \
+        PATH=${PATH}:${ARM_SDK_DIR} make GCC_REQUIRED_VERSION=${GCC_VERSION} TARGET=${PLATFORM}; \
     fi
-
