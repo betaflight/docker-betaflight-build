@@ -35,7 +35,7 @@ The firmware file (`.bin` or `.hex`) is created in the `obj` subfolder of your b
 #### Options
 You can pass the following optional parameters to the Docker build like so:
 
-`docker run -e "<parameter>=value" --rm -ti -v `pwd`:/opt/betaflight betaflight/betaflight-build`. 
+``docker run -e "<parameter>=value" --rm -ti -v `pwd`:/opt/betaflight betaflight/betaflight-build`` 
 
 - `PLATFORM` The platform to build for. Use `ALL` to build for all platforms. (default: `NAZE`)
 
