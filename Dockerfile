@@ -32,13 +32,14 @@ ENV ARM_SDK_DIR="/usr/"
 CMD if [ -z ${PLATFORM} ]; then \
         PLATFORM="NAZE"; \
     fi && \
-    if [ -n ${OPTIONS} ]; then \
-        OPTIONS="OPTIONS=${OPTIONS}"; \
+    EXTRA_OPTIONS="" && \
+    if [ -n ${EXTRA_OPTIONS} ]; then \
+        EXTRA_OPTIONS="OPTIONS=${OPTIONS}"; \
     fi && \
     if [ ${PLATFORM} = ALL ]; then \
         make ARM_SDK_DIR=${ARM_SDK_DIR} clean_all && \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} all; \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} all ${EXTRA_OPTIONS}; \
     else \
         make ARM_SDK_DIR=${ARM_SDK_DIR} clean TARGET=${PLATFORM} && \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} TARGET=${PLATFORM}; \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} TARGET=${PLATFORM} ${EXTRA_OPTIONS}; \
     fi
