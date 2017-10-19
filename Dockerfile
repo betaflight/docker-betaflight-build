@@ -33,7 +33,7 @@ CMD if [ -z ${PLATFORM} ]; then \
         PLATFORM="NAZE"; \
     fi && \
     EXTRA_OPTIONS="" && \
-    if [ -n ${EXTRA_OPTIONS} ]; then \
+    if [ -n ${OPTIONS} ]; then \
         EXTRA_OPTIONS="OPTIONS=${OPTIONS}"; \
     fi && \
     if [ ${PLATFORM} = ALL ]; then \
