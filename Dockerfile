@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 MAINTAINER betaflight
 
 # If you want to tinker with this Dockerfile on your machine do as follows:
