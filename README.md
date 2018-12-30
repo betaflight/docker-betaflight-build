@@ -42,11 +42,11 @@ Depending on the performance of your system it takes 1-3min until the compilatio
 
 (Docker on) Windows handles paths slightly differently. You need to specify the full path to the Betaflight directory in the command and you need to add an extra forward slash (`/`) to the Windows path. The command thus becomes (`c` equals C drive i.e. `c:`):
 
-`docker run --rm -it -v //c/Users/<user>/<betaflight>:/opt/betaflight betaflight/betaflight-build`
+`docker run --rm -it -v c:/Users/<user>/<betaflight>:/opt/betaflight betaflight/betaflight-build`
 
 If the Windows path contains spaces it would have to be wrapped in quotes as usual on Windows.
 
-`docker run --rm -it -v "//c/Users/joe blogs/<betaflight>":/opt/betaflight betaflight/betaflight-build`
+`docker run --rm -it -v "c:/Users/joe blogs/<betaflight>":/opt/betaflight betaflight/betaflight-build`
 
 #### Output
 The firmware file (`.bin` or `.hex`) is created in the `obj` subfolder of your betaflight source directory.
@@ -57,7 +57,7 @@ You can pass optional parameters to the Docker build like so:
 ``docker run -e "<parameter>=value" --rm -it -v `pwd`:/opt/betaflight betaflight/betaflight-build`` 
 
 For Windows:
-``docker run -e "PLATFORM=<target name>" --rm -it -v //c/Users/<user>/<any sub-directory names>/betaflight:/opt/betaflight betaflight/betaflight-build`` 
+``docker run -e "PLATFORM=<target name>" --rm -it -v c:/Users/<user>/<any sub-directory names>/betaflight:/opt/betaflight betaflight/betaflight-build`` 
 
 These parameters are supported:
 
