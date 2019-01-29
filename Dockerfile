@@ -10,7 +10,7 @@ MAINTAINER betaflight
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y full-upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common git make ccache python curl bzip2 gcc
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common git make ccache python curl bzip2 gcc clang libblocksruntime-dev
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository -y ppa:team-gcc-arm-embedded/ppa
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install gcc-arm-embedded
@@ -24,19 +24,23 @@ ENV ARM_SDK_DIR="/usr/"
 
 # Config options you may pass via Docker like so 'docker run -e "<option>=<value>"':
 # - PLATFORM=<name>, specify target platform to build for
-#   Specify 'ALL' to build for all supported platforms. (default: NAZE)
+#   Specify 'ALL' to build for all supported platforms. (default: BETAFLIGHTF3)
+#   Specify 'TEST' to build and run the unit tests.
 # - OPTIONS=<options> specify build options to be used as defines during the build
 #
 # What the commands do:
 
 CMD if [ -z ${PLATFORM} ]; then \
-        PLATFORM="NAZE"; \
+        PLATFORM="BETAFLIGHTF3"; \
     fi && \
     EXTRA_OPTIONS="" && \
     if [ -n ${OPTIONS} ]; then \
         EXTRA_OPTIONS="OPTIONS=${OPTIONS}"; \
     fi && \
-    if [ ${PLATFORM} = ALL ]; then \
+    if [ ${PLATFORM} = TEST ]; then \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} clean_test && \
+        make ARM_SDK_DIR=${ARM_SDK_DIR} test ${EXTRA_OPTIONS}; \
+    elif [ ${PLATFORM} = ALL ]; then \
         make ARM_SDK_DIR=${ARM_SDK_DIR} clean_all && \
         make ARM_SDK_DIR=${ARM_SDK_DIR} all ${EXTRA_OPTIONS}; \
     else \
