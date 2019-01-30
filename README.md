@@ -57,16 +57,16 @@ You can pass optional parameters to the Docker build like so:
 ``docker run -e "<parameter>=value" --rm -it -v `pwd`:/opt/betaflight betaflight/betaflight-build`` 
 
 For Windows:
-``docker run -e "PLATFORM=<target name>" --rm -it -v c:/Users/<user>/<any sub-directory names>/betaflight:/opt/betaflight betaflight/betaflight-build`` 
+``docker run -e "TARGET=<target name>" --rm -it -v c:/Users/<user>/<any sub-directory names>/betaflight:/opt/betaflight betaflight/betaflight-build`` 
 
 These parameters are supported:
 
-- `PLATFORM=<target name>`: The platform (target) to build, e.g. `PLATFORM=SPRACINGF3`. (default: `BETAFLIGHTF3`);
+- `TARGET=<target name>`: The platform (target) to build, e.g. `TARGET=SPRACINGF3`. (default: `BETAFLIGHTF3`);
 - `OPTIONS=<options>`: specify build options to be used as defines during the build.
 
 Special cases:
-- `PLATFORM=ALL`: build all targets (may take a long time);
-- `PLATFORM=TEST`: build and run the unit tests.
+- `TARGET=all`: build all targets (may take a long time);
+- `TARGET=test`: build and run the unit tests.
 
 ### Flashing the built binary
 Use the [Betaflight Configurator](https://chrome.google.com/webstore/detail/betaflight-configurator/kdaghagfopacdngbohiknlhcocjccjao) Chrome app to flash and configure your firmware.
