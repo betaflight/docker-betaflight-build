@@ -36,7 +36,7 @@ To pull the branch to your local PC
 <code>git pull</code>
 
 Then run:
-<code>docker run --rm -ti -v `pwd`:/opt/betaflight betaflight/betaflight-build</code>
+<code>docker run --rm -ti -v \`pwd\`:/opt/betaflight betaflight/betaflight-build</code>
 
 Depending on the performance of your system it takes 1-3min until the compilation finishes. The first time you run this it takes longer because Docker needs to download the image and create a container.
 
@@ -56,7 +56,7 @@ The firmware file (<code>.bin</code> or <code>.hex</code>) is created in the <co
 #### Options
 You can pass optional parameters to the Docker build like so:
 
-<code>docker run -e "&lt;parameter&gt;=value" --rm -it -v `pwd`:/opt/betaflight betaflight/betaflight-build</code> 
+<code>docker run -e "&lt;parameter&gt;=value" --rm -it -v \`pwd\`:/opt/betaflight betaflight/betaflight-build</code> 
 
 For Windows:
 <code>docker run -e "parameter=&lt;value&gt;" --rm -it -v c:/Users/&lt;user&gt;/&lt;any sub-directory names&gt;/betaflight:/opt/betaflight betaflight/betaflight-build</code> 
