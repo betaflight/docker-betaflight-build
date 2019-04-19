@@ -3,7 +3,7 @@
 
 _(Markdown optimised for display in [Dockerhub](https://hub.docker.com/r/betaflight/betaflight-build).)_
 
-Clone and edit [Betaflight](https://github.com/betaflight/betaflight) locally on your platform. This image will take it from there and turn your code into a binary which you then can flash to your flight controller with the [Betaflight Configurator](https://chrome.google.com/webstore/detail/betaflight-configurator/kdaghagfopacdngbohiknlhcocjccjao).
+Clone and edit [Betaflight](https://github.com/betaflight/betaflight) locally on your platform. This image will take it from there and turn your code into a binary which you then can flash to your flight controller with the [Betaflight Configurator](https://github.com/betaflight/betaflight-configurator).
 
 ## Usage
 ### Install Docker
