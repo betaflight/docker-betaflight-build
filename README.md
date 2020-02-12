@@ -63,12 +63,15 @@ For Windows:
 
 These parameters are supported:
 
-- <code>TARGET=&lt;target name&gt;</code>: The platform (target) to build, e.g. <code>TARGET=SPRACINGF3</code>. (default: <code>BETAFLIGHTF3</code>);
+- <code>TARGET=&lt;target name&gt;</code>: The platform (target) to build, e.g. <code>TARGET=STM32F7X2</code>;
 - <code>OPTIONS=&lt;options&gt;</code>: specify build options to be used as defines during the build.
 
 Special cases:
 - <code>TARGET=all</code>: build all targets (may take a long time);
-- <code>TARGET=test</code>: build and run the unit tests.
+- <code>TARGET=test</code>: build and run the unit tests;
+- <code>TARGET=unified</code>: build all Unified Targets;
+- <code>TARGET=unified\zip</code>: build all Unified Targets and pack them into ZIP files (good for adding to GitHub issues);
+- <code>TARGET=pre-push</code>: build representative targets and build and run the tests (**do this to check that your changes do not introduce build failures every time before opening a pull request**).
 
 ### Flashing the built binary
 Use the [Betaflight Configurator](https://chrome.google.com/webstore/detail/betaflight-configurator/kdaghagfopacdngbohiknlhcocjccjao) Chrome app to flash and configure your firmware.

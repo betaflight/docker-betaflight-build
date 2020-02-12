@@ -30,20 +30,32 @@ ENV ARM_SDK_DIR="/usr/"
 #
 # What the commands do:
 
-CMD if [ -z ${TARGET} ]; then \
-        TARGET="BETAFLIGHTF3"; \
-    fi && \
-    EXTRA_OPTIONS="" && \
+CMD EXTRA_OPTIONS=""; \
     if [ -n ${OPTIONS} ]; then \
         EXTRA_OPTIONS="OPTIONS=${OPTIONS}"; \
-    fi && \
-    if [ ${TARGET} = test ]; then \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} clean_test && \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} test ${EXTRA_OPTIONS}; \
-    elif [ ${TARGET} = all ]; then \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} clean_all && \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} all ${EXTRA_OPTIONS}; \
+        unset OPTIONS; \
+    fi; \
+    CLEAN_TARGET=clean; \
+    BUILD_TARGET=; \
+    if [ ${TARGET} = 'test' ]; then \
+        CLEAN_TARGET=test_clean; \
+        BUILD_TARGET=test; \
+    elif [ ${TARGET} = 'all' ]; then \
+        CLEAN_TARGET=clean_all; \
+        BUILD_TARGET=all; \
+    elif [ ${TARGET} = 'unified' ]; then \
+        CLEAN_TARGET=clean_all; \
+        BUILD_TARGET=unified; \
+    elif [ ${TARGET} = 'unified_zip' ]; then \
+        CLEAN_TARGET=clean_all; \
+        BUILD_TARGET=unified_zip; \
+    elif [ ${TARGET} = 'pre-push' ]; then \
+        CLEAN_TARGET=clean; \
+        BUIILD_TARGET=pre-push; \
     else \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} clean TARGET=${TARGET} && \
-        make ARM_SDK_DIR=${ARM_SDK_DIR} TARGET=${TARGET} ${EXTRA_OPTIONS}; \
-    fi
+        CLEAN_TARGET="clean TARGET=${TARGET}"; \
+        BUILD_TARGET="TARGET=${TARGET}"; \
+    fi; \
+    unset TARGET; \
+    make ARM_SDK_DIR=${ARM_SDK_DIR} ${CLEAN_TARGET}; \
+    make ARM_SDK_DIR=${ARM_SDK_DIR} ${BUILD_TARGET} ${EXTRA_OPTIONS}
